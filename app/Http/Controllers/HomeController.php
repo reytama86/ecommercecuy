@@ -155,12 +155,13 @@ class HomeController extends Controller
             'created_at' => date('Y-m-d H:i:s')
         ]);
 
-        for($i = 0; $i < count($request->id_produk); $i++) {
+        foreach($request->input('id_product') as $key => $id_product) {
             DB::table('orders_details')->insert([
                 'id_order' => $id,
-                'id_produk' => $request->id_produk[$i],
-                'jumlah' => $request->jumlah[$i],
-                'total' => $request->total[$i],
+                'id_produk' => $id_product,
+                'jumlah' => $request->input('jumlah')[$key],
+                'total' => $request->input('total')[$key],
+                'created_at' => date('Y-m-d H:i:s')
             ]);
         }
 
